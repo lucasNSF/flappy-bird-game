@@ -1,0 +1,14 @@
+@font-face {
+  font-family: 'VT323';
+  src: url("./fonts/VT323-Regular.ttf") format("truetype");
+  font-weight: bold;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  background: url(background.png);
+  background-repeat: no-repeat;
+  background-position-y: 0;
+  background-size: 500px;
+}
