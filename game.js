@@ -1,6 +1,7 @@
 console.log("Flappy Bird Game :3");
 
 let frames = 0;
+let betterScore = 0;
 
 const som_HIT = new Audio();
 som_HIT.src = "./sounds/hit.wav";
@@ -400,6 +401,8 @@ const telaDeGameOver = {
 telas.GAME_OVER = {
   desenha() {
     telaDeGameOver.desenha();
+    checarPontuacao();
+    desenharPlacarFinal();
   },
   atualiza() {},
   click() {
@@ -429,6 +432,134 @@ const telaDeInicio = {
     );
   },
 };
+
+const medalhaBronze = {
+  spriteX: 48,
+  spriteY: 124,
+  largura: 44,
+  altura: 44,
+  x: canvas.width / 2 - 86,
+  y: 136,
+
+  desenha() {
+    contexto.drawImage(
+      sprites,
+      this.spriteX,
+      this.spriteY,
+      this.largura,
+      this.altura,
+      this.x,
+      this.y,
+      this.largura,
+      this.altura
+    );
+  },
+};
+
+const medalhaPrata = {
+  spriteX: 48,
+  spriteY: 78,
+  largura: 44,
+  altura: 44,
+  x: canvas.width / 2 - 86,
+  y: 136,
+
+  desenha() {
+    contexto.drawImage(
+      sprites,
+      this.spriteX,
+      this.spriteY,
+      this.largura,
+      this.altura,
+      this.x,
+      this.y,
+      this.largura,
+      this.altura
+    );
+  },
+};
+
+const medalhaOuro = {
+  spriteX: 0,
+  spriteY: 124,
+  largura: 44,
+  altura: 44,
+  x: canvas.width / 2 - 86,
+  y: 136,
+
+  desenha() {
+    contexto.drawImage(
+      sprites,
+      this.spriteX,
+      this.spriteY,
+      this.largura,
+      this.altura,
+      this.x,
+      this.y,
+      this.largura,
+      this.altura
+    );
+  },
+};
+
+const medalhaPlatina = {
+  spriteX: 0,
+  spriteY: 78,
+  largura: 44,
+  altura: 44,
+  x: canvas.width / 2 - 86,
+  y: 136,
+
+  desenha() {
+    contexto.drawImage(
+      sprites,
+      this.spriteX,
+      this.spriteY,
+      this.largura,
+      this.altura,
+      this.x,
+      this.y,
+      this.largura,
+      this.altura
+    );
+  },
+};
+
+function checarPontuacao() {
+  if (globais.placar.pontuacao > 10 && globais.placar.pontuacao <= 20) {
+    medalhaBronze.desenha();
+  } else if (globais.placar.pontuacao >= 21 && globais.placar.pontuacao <= 50) {
+    medalhaPrata.desenha();
+  } else if (globais.placar.pontuacao >= 51 && globais.placar.pontuacao <= 200) {
+    medalhaOuro.desenha();
+  } else if (globais.placar.pontuacao >= 201) {
+    medalhaPlatina.desenha();
+  }
+}
+
+function desenharPlacarFinal() {
+  if (globais.placar.pontuacao > betterScore) {
+    betterScore = globais.placar.pontuacao;
+  }
+
+  // Desenho score
+  contexto.font = "25px VT323";
+  contexto.fillStyle = "white";
+  contexto.strokeStyle = "black";
+  contexto.lineWidth = 5;
+  contexto.strokeText(`${globais.placar.pontuacao}`, canvas.width - 70, 146);
+  contexto.textAlign = "right";
+  contexto.fillText(`${globais.placar.pontuacao}`, canvas.width - 70, 145);
+
+  // Desenhando betterScore
+  contexto.font = "25px VT323";
+  contexto.fillStyle = "white";
+  contexto.strokeStyle = "black";
+  contexto.lineWidth = 5;
+  contexto.strokeText(`${betterScore}`, canvas.width - 70, 186);
+  contexto.textAlign = "right";
+  contexto.fillText(`${betterScore}`, canvas.width - 70, 185);
+}
 
 function loop() {
   telaAtiva.desenha();
